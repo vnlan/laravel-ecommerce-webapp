@@ -2,63 +2,34 @@
 @extends('v1.admin-views.layouts.admin-layout')
 
 @section('v1-admin-title')
-<title>Quản lý danh mục sản phẩm</title>
+<title>Thêm mới Sản phẩm</title>
 @endsection
-
-
 
 @section('v1-admin-js')
+<script type="text/javascript" src="{{ asset('v1/resources/js/admin-page/reuseable/preview-image.js') }}"></script>
+<script type="text/javascript" src="{{ asset('v1/resources/js/admin-page/reuseable/select2.js') }}"></script>
+<script type="text/javascript" src="{{ asset('v1/resources/js/admin-page/reuseable/tinymce.js') }}"></script>
 
-<script type="text/javascript" src="{{ asset('v1/resources/js/admin-page/reuseable/hide-toast.js') }}"></script>
-<script type="text/javascript" src="{{ asset('v1/resources/js/admin-page/reuseable/sweet-alert-2.js') }}"></script>
 @endsection
-
 
 @section('v1-admin-css')
 <link rel="stylesheet" href="{{ asset('v1/resources/css/admin-page/reuseable/img-fit.css') }}">
 </link>
 @endsection
 
-
+<style>
+  .select2 {
+    width: 100% !important;
+  }
+</style>
 
 @section('v1-admin-content')
 
-
-
 <div class="container-xxl flex-grow-1 container-p-y">
 
-  @include('v1.admin-views.partials.content-header',['pageParent' => 'Quản lý danh mục sản phẩm', 'pageName' => 'Tất cả danh mục'])
+  @include('v1.admin-views.partials.content-header',['pageParent' => 'Quản lý Sản phẩm', 'pageName' => 'Thêm mới Sản phẩm'])
 
-  <div class="toast-container">
-    @if (session('success'))
-    <!-- Toast with Placements -->
-    <div class="bs-toast toast toast-placement-ex m-2 bg-success top-0 end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" id="successToast">
-      <div class="toast-header">
-        <i class="bx bx-bell me-2"></i>
-        <div class="me-auto fw-semibold">Thông báo</div>
-        <small>vừa xong</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body">{{ Session::get('success') }}</div>
-    </div>
-    <!-- Toast with Placements -->
-    @endif
-    @if (session('error'))
-    <!-- Toast with Placements -->
-    <div class="bs-toast toast toast-placement-ex m-2 bg-danger top-0 end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" id="successToast">
-      <div class="toast-header">
-        <i class="bx bx-bell me-2"></i>
-        <div class="me-auto fw-semibold">Thông báo</div>
-        <small>vừa xong</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body">{{ Session::get('error') }}</div>
-    </div>
-    <!-- Toast with Placements -->
-    @endif
-  </div>
 
-  
   <div class="row">
 
     <!-- Button with Badges -->
@@ -66,70 +37,123 @@
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between my-2">
           <div class="p-2">
-            <h5 class="card-title mb-0">Danh sách danh mục sản phẩm</h5>
+            <h5 class="card-title mb-0">Thêm mới Sản phẩm</h5>
           </div>
-          <div class="pt-md-0">
-            <a href="{{ route('categories.create') }}" class="dt-button create-new btn btn-success" type="button">
-              <span>
-                <i class="bx bx-plus me-sm-2"></i>
-                <span class="d-none d-sm-inline-block">Thêm mới danh mục</span>
-              </span>
-            </a>
-          </div>
+          <!-- <div class="pt-md-0">
+                        <button class="dt-button create-new btn btn-primary" type="button">
+                            <span>
+                                <i class="bx bx-plus me-sm-2"></i>
+                                <span class="d-none d-sm-inline-block">Thêm mới danh mục</span>
+                            </span>
+                        </button>
+                    </div> -->
         </div>
 
+        <div class="card-body">
+          <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Mã sản phẩm</label>
+                <div class="input-group input-group-merge speech-to-text">
+                  <input type="text" name="sku" class="form-control" placeholder="Nhập hoặc nói mã sản phẩm" aria-describedby="text-to-speech-addon" required>
+                  <span class="input-group-text" id="text-to-speech-addon">
+                    <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
 
-        <div class="card-body ">
-          <div class="table-responsive text-nowrap">
-            <table style="line-height: 3" id="table1" class="table table-hover table-lg">
-              <thead class="table-light">
-                <tr>
-                  <th>ID</th>
-                  <th>Tên danh mục</th>
-                  <th>Ảnh đại diện</th>
-                  <th>Mô tả</th>
-                  <th>Hành động</th>
-                </tr>
-              </thead>
-              <tbody class="table-border-bottom-0">
-                @foreach($categories as $category)
-                <tr>
-                  <td>{{$category->id}}</td>
-                  <td>{{$category->name}}</td>
-                  <td>
-                    @if (isset($category->avatar_path))
-                    <img class="img-custom" width="150" height="100" src="{{ $category->avatar_path }}">
-                    @else
-                    <img class="img-custom" width="150" height="100" src="https://banksiafdn.com/wp-content/uploads/2019/10/placeholde-image.jpg">
-                    @endif
+                <label class="form-label" for="basic-default-fullname">Tên sản phẩm</label>
+                <div class="input-group input-group-merge speech-to-text">
+                  <input type="text" name="name" class="form-control" placeholder="Nhập hoặc nói tên sản phẩm" aria-describedby="text-to-speech-addon" required>
+                  <span class="input-group-text" id="text-to-speech-addon">
+                    <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Chọn hãng sản xuất</label>
+                <select class="form-select" name="product_company_id" required>
+                  @foreach ($productCompanies as $productCompany)
+                    <option value="{{$productCompany->id}}">{{$productCompany->company_short_name}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Chọn danh mục:</label>
 
+                <select class="form-control select2-multiple" name="category_id[]" multiple required>
+                 @foreach ($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}<option>
+                  @endforeach
+                </select>
 
-                  </td>
-                  <td>{{$category->description}}</td>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Giá sản phẩm:</label>
+                <div class="input-group input-group-merge speech-to-text">
+                  <input type="number" min="0" name="price" class="form-control" placeholder="Nhập hoặc nói giá sản phẩm" aria-describedby="text-to-speech-addon" required>
+                  <span class="input-group-text" id="text-to-speech-addon">
+                    <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                  </span>
+                </div>
+              </div>
 
-                  <td>
-                    <a type="button" href="{{ route('categories.edit', ['id' => $category->id]) }}" class="btn btn-primary">
-                      <span>
-                        <i class='bx bxs-edit'></i>
-                        <span class="d-none d-sm-inline-block">Sửa</span>
-                      </span>
-                    </a>
-                    <!-- Button trigger modal -->
-                    <a type="button" href="" class="btn btn-danger mx-1 action-delete" data-url="{{route('categories.delete', ['id' => $category->id])}}">
-                      <span>
-                        <i class='bx bx-trash'></i>
-                        <span class="d-none d-sm-inline-block">Xóa</span>
-                      </span>
-                    </a>
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Số lượng:</label>
+                <div class="input-group input-group-merge speech-to-text">
+                  <input type="number" min="0" name="stock" class="form-control" placeholder="Nhập hoặc nói số lượng sản phẩm" aria-describedby="text-to-speech-addon" required>
+                  <span class="input-group-text" id="text-to-speech-addon">
+                    <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Ảnh đại diện:</label>
+                <div class="">
+                  <input type="file" class="form-control" name="feature_image_path" onchange="showSinglePicture(this,1);" id="" placeholder="ACME Inc.">
+                  <img class="avatar1 my-3 img-custom" width="250" height="200" src="https://banksiafdn.com/wp-content/uploads/2019/10/placeholde-image.jpg">
+                </div>
+              </div>
 
-                  </td>
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Ảnh chi tiết:</label>
+                <div >
+                  <input type="file" class="form-control" name="image_path[]" onchange="showMultiplePictures(this,1);" id="multiple-images-1" placeholder="" multiple>
+                  <div class="multiple-images-holder-1">
+                      <img class=" my-3 img-custom" width="250" height="200" src="https://banksiafdn.com/wp-content/uploads/2019/10/placeholde-image.jpg">
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="form-label" for="basic-default-company">Mô tả ngắn</label>
+              <div class="input-group input-group-merge speech-to-text">
+                <textarea class="form-control" name="short_description" placeholder="Điền hoặc nói mô tả ngắn" rows="4"></textarea>
+                <span class="input-group-text">
+                  <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                </span>
+              </div>
+            </div>
 
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Mô tả chi tiết</label>
+              <textarea class="form-control tinymce-editor" name="long_description" id="exampleFormControlTextarea1" rows="25"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Xác nhận thêm</button>
+            <button type="reset" class="btn btn-secondary">Hủy</button>
+          </form>
         </div>
+
       </div>
     </div>
   </div>

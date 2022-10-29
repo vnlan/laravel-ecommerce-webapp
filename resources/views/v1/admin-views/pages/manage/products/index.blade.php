@@ -1,8 +1,8 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 @extends('v1.admin-views.layouts.admin-layout')
 
 @section('v1-admin-title')
-<title>Quản lý danh mục sản phẩm</title>
+<title>Quản lý Sản phẩm</title>
 @endsection
 
 
@@ -27,7 +27,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-  @include('v1.admin-views.partials.content-header',['pageParent' => 'Quản lý danh mục sản phẩm', 'pageName' => 'Tất cả danh mục'])
+  @include('v1.admin-views.partials.content-header',['pageParent' => 'Quản lý Sản phẩm', 'pageName' => 'Tất cả Sảm phẩm'])
 
   <div class="toast-container">
     @if (session('success'))
@@ -58,7 +58,7 @@
     @endif
   </div>
 
-  
+
   <div class="row">
 
     <!-- Button with Badges -->
@@ -66,13 +66,13 @@
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between my-2">
           <div class="p-2">
-            <h5 class="card-title mb-0">Danh sách danh mục sản phẩm</h5>
+            <h5 class="card-title mb-0">Danh sách Hãng sản xuất</h5>
           </div>
           <div class="pt-md-0">
-            <a href="{{ route('categories.create') }}" class="dt-button create-new btn btn-success" type="button">
+            <a href="{{ route('products.create') }}" class="dt-button create-new btn btn-success" type="button">
               <span>
                 <i class="bx bx-plus me-sm-2"></i>
-                <span class="d-none d-sm-inline-block">Thêm mới danh mục</span>
+                <span class="d-none d-sm-inline-block">Thêm mới Hãng</span>
               </span>
             </a>
           </div>
@@ -85,37 +85,43 @@
               <thead class="table-light">
                 <tr>
                   <th>ID</th>
-                  <th>Tên danh mục</th>
+                  <th>SKU</th>
+                  <th>Tên sản phẩm</th>
                   <th>Ảnh đại diện</th>
-                  <th>Mô tả</th>
+                  <th>Danh mục</th>
                   <th>Hành động</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                @foreach($categories as $category)
+                @foreach($products as $product)
                 <tr>
-                  <td>{{$category->id}}</td>
-                  <td>{{$category->name}}</td>
+                  <td>{{$product->id}}</td>
+                  <td>{{$product->sku}}</td>
+                  <td>{{$product->name}}</td>
                   <td>
-                    @if (isset($category->avatar_path))
-                    <img class="img-custom" width="150" height="100" src="{{ $category->avatar_path }}">
+                    @if (isset($product->feature_image_path))
+                    <img class="img-custom" width="150" height="100" src="{{ $product->feature_image_path }}">
                     @else
                     <img class="img-custom" width="150" height="100" src="https://banksiafdn.com/wp-content/uploads/2019/10/placeholde-image.jpg">
                     @endif
 
 
                   </td>
-                  <td>{{$category->description}}</td>
+                  <td>
+                    @foreach ($product->categories as $category)
+                      {{$category->name}} <br>
+                    @endforeach
+                  </td>
 
                   <td>
-                    <a type="button" href="{{ route('categories.edit', ['id' => $category->id]) }}" class="btn btn-primary">
+                    <a type="button" href="{{route('products.edit',['id' => $product->id])}}" class="btn btn-primary">
                       <span>
                         <i class='bx bxs-edit'></i>
                         <span class="d-none d-sm-inline-block">Sửa</span>
                       </span>
                     </a>
                     <!-- Button trigger modal -->
-                    <a type="button" href="" class="btn btn-danger mx-1 action-delete" data-url="{{route('categories.delete', ['id' => $category->id])}}">
+                    <a type="button" href="" class="btn btn-danger mx-1 action-delete" data-url="{{route('products.delete', ['id' => $product->id])}}">
                       <span>
                         <i class='bx bx-trash'></i>
                         <span class="d-none d-sm-inline-block">Xóa</span>

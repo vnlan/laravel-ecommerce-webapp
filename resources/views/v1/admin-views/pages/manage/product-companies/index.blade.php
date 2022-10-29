@@ -2,7 +2,7 @@
 @extends('v1.admin-views.layouts.admin-layout')
 
 @section('v1-admin-title')
-<title>Quản lý danh mục sản phẩm</title>
+<title>Quản lý Hãng sản xuất</title>
 @endsection
 
 
@@ -27,7 +27,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-  @include('v1.admin-views.partials.content-header',['pageParent' => 'Quản lý danh mục sản phẩm', 'pageName' => 'Tất cả danh mục'])
+  @include('v1.admin-views.partials.content-header',['pageParent' => 'Quản lý Hãng sản xuất', 'pageName' => 'Tất cả Hãng'])
 
   <div class="toast-container">
     @if (session('success'))
@@ -66,13 +66,13 @@
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between my-2">
           <div class="p-2">
-            <h5 class="card-title mb-0">Danh sách danh mục sản phẩm</h5>
+            <h5 class="card-title mb-0">Danh sách Hãng sản xuất</h5>
           </div>
           <div class="pt-md-0">
-            <a href="{{ route('categories.create') }}" class="dt-button create-new btn btn-success" type="button">
+            <a href="{{ route('product-companies.create') }}" class="dt-button create-new btn btn-success" type="button">
               <span>
                 <i class="bx bx-plus me-sm-2"></i>
-                <span class="d-none d-sm-inline-block">Thêm mới danh mục</span>
+                <span class="d-none d-sm-inline-block">Thêm mới Hãng</span>
               </span>
             </a>
           </div>
@@ -85,37 +85,38 @@
               <thead class="table-light">
                 <tr>
                   <th>ID</th>
-                  <th>Tên danh mục</th>
+                  <th>Tên hãng</th>
+                  <th>Tên viết tắt</th>
                   <th>Ảnh đại diện</th>
-                  <th>Mô tả</th>
                   <th>Hành động</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                @foreach($categories as $category)
+                @foreach($productCompanies as $productCompany)
                 <tr>
-                  <td>{{$category->id}}</td>
-                  <td>{{$category->name}}</td>
+                  <td>{{$productCompany->id}}</td>
+                  <td>{{$productCompany->company_name}}</td>
+                  <td>{{$productCompany->company_short_name}}</td>
                   <td>
-                    @if (isset($category->avatar_path))
-                    <img class="img-custom" width="150" height="100" src="{{ $category->avatar_path }}">
+                    @if (isset($productCompany->avatar_path))
+                    <img class="img-custom" width="150" height="100" src="{{ $productCompany->avatar_path }}">
                     @else
                     <img class="img-custom" width="150" height="100" src="https://banksiafdn.com/wp-content/uploads/2019/10/placeholde-image.jpg">
                     @endif
 
 
                   </td>
-                  <td>{{$category->description}}</td>
+                  
 
                   <td>
-                    <a type="button" href="{{ route('categories.edit', ['id' => $category->id]) }}" class="btn btn-primary">
+                    <a type="button" href="{{ route('product-companies.edit', ['id' => $productCompany->id]) }}" class="btn btn-primary">
                       <span>
                         <i class='bx bxs-edit'></i>
                         <span class="d-none d-sm-inline-block">Sửa</span>
                       </span>
                     </a>
                     <!-- Button trigger modal -->
-                    <a type="button" href="" class="btn btn-danger mx-1 action-delete" data-url="{{route('categories.delete', ['id' => $category->id])}}">
+                    <a type="button" href="" class="btn btn-danger mx-1 action-delete" data-url="{{route('product-companies.delete', ['id' => $productCompany->id])}}">
                       <span>
                         <i class='bx bx-trash'></i>
                         <span class="d-none d-sm-inline-block">Xóa</span>
