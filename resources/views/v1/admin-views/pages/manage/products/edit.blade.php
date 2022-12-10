@@ -18,28 +18,28 @@
 @endsection
 
 <style>
-    .select2 {
-        width: 100% !important;
-    }
+  .select2 {
+    width: 100% !important;
+  }
 </style>
 
 @section('v1-admin-content')
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    @include('v1.admin-views.partials.content-header',['pageParent' => 'Quản lý Sản phẩm', 'pageName' => 'Sửa Sản phẩm'])
+  @include('v1.admin-views.partials.content-header',['pageParent' => 'Quản lý Sản phẩm', 'pageName' => 'Sửa Sản phẩm'])
 
 
-    <div class="row">
+  <div class="row">
 
-        <!-- Button with Badges -->
-        <div class="col-lg">
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between my-2">
-                    <div class="p-2">
-                        <h5 class="card-title mb-0">Sửa Sản phẩm</h5>
-                    </div>
-                    <!-- <div class="pt-md-0">
+    <!-- Button with Badges -->
+    <div class="col-lg">
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between my-2">
+          <div class="p-2">
+            <h5 class="card-title mb-0">Sửa Sản phẩm</h5>
+          </div>
+          <!-- <div class="pt-md-0">
                         <button class="dt-button create-new btn btn-primary" type="button">
                             <span>
                                 <i class="bx bx-plus me-sm-2"></i>
@@ -47,134 +47,143 @@
                             </span>
                         </button>
                     </div> -->
-                </div>
-
-                <div class="card-body">
-                    <form action="{{route('products.update',['id' => $product->id] )}}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="basic-default-fullname">Mã sản phẩm</label>
-                                <div class="input-group input-group-merge speech-to-text">
-                                    <input type="text" name="sku" value="{{$product->sku}}" class="form-control" placeholder="Nhập hoặc nói mã sản phẩm" aria-describedby="text-to-speech-addon" required>
-                                    <span class="input-group-text" id="text-to-speech-addon">
-                                        <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-
-                                <label class="form-label" for="basic-default-fullname">Tên sản phẩm</label>
-                                <div class="input-group input-group-merge speech-to-text">
-                                    <input type="text" name="name" value="{{$product->name}}" class="form-control" placeholder="Nhập hoặc nói tên sản phẩm" aria-describedby="text-to-speech-addon" required>
-                                    <span class="input-group-text" id="text-to-speech-addon">
-                                        <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="basic-default-fullname">Chọn hãng sản xuất</label>
-                                <select class="form-select" name="product_company_id" required>
-                                    @foreach ($productCompanies as $productCompany)
-                                    <option value="{{ $productCompany->id }}" {{( $productCompany->id == $product->product_company_id) ? 'selected' : '' }}>{{$productCompany->company_short_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="basic-default-fullname">Chọn danh mục:</label>
-
-                                <select class="form-control select2-multiple" name="category_id[]" multiple required>
-
-                                    @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" @foreach($product->categories as $productCategory)
-                                        {{$productCategory->id == $category->id ? 'selected': ''}}
-                                        @endforeach> {{ $category->name }}
-
-                                    </option>
-
-                                    @endforeach
-                                </select>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="basic-default-fullname">Giá sản phẩm:</label>
-                                <div class="input-group input-group-merge speech-to-text">
-                                    <input type="number" min="0" name="price" value="{{$product->price}}" class="form-control" placeholder="Nhập hoặc nói giá sản phẩm" aria-describedby="text-to-speech-addon" required>
-                                    <span class="input-group-text" id="text-to-speech-addon">
-                                        <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="basic-default-fullname">Số lượng:</label>
-                                <div class="input-group input-group-merge speech-to-text">
-                                    <input type="number" min="0" name="stock" value="{{$product->stock}}" class="form-control" placeholder="Nhập hoặc nói số lượng sản phẩm" aria-describedby="text-to-speech-addon" required>
-                                    <span class="input-group-text" id="text-to-speech-addon">
-                                        <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="basic-default-fullname">Ảnh đại diện:</label>
-                                <div class="">
-                                    <input type="file" class="form-control" name="feature_image_path" onchange="showSinglePicture(this,1);" id="" placeholder="ACME Inc.">
-                                    @if (isset($product->feature_image_path))
-                                    <img class="avatar1 my-3 img-custom" width="250" height="200" src="{{ $product->feature_image_path }}">
-                                    @else
-                                    <img class="avatar1 my-3 img-custom" width="250" height="200" src="  https://banksiafdn.com/wp-content/uploads/2019/10/placeholde-image.jpg">
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="basic-default-fullname">Ảnh chi tiết:</label>
-                                <div>
-                                    <input type="file" class="form-control" name="image_path[]" onchange="showMultiplePictures(this,1);" id="multiple-images-1" placeholder="" multiple>
-                                    <div class="multiple-images-holder-1">
-
-                                        @forelse($product->images as $image)
-                                        <img class="my-2 img-custom me-3" width="175" height="125" src="{{ $image->image_path }}">
-                                        @empty
-                                        <img class=" my-3 img-custom" width="250" height="200" src="https://banksiafdn.com/wp-content/uploads/2019/10/placeholde-image.jpg">
-                                        @endforelse
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="form-label" for="basic-default-company">Mô tả ngắn</label>
-                            <div class="input-group input-group-merge speech-to-text">
-                                <textarea class="form-control" name="short_description" placeholder="Điền hoặc nói mô tả ngắn" rows="4">{{$product->short_description}}</textarea>
-                                <span class="input-group-text">
-                                    <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Mô tả chi tiết</label>
-                            <textarea class="form-control tinymce-editor" name="long_description" id="exampleFormControlTextarea1" rows="25">{{$product->long_description}}</textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Xác nhận thêm</button>
-                        <button type="reset" class="btn btn-secondary">Hủy</button>
-                    </form>
-                </div>
-
-            </div>
         </div>
+
+        <div class="card-body">
+          <form action="{{route('products.update',['id' => $product->id] )}}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Mã sản phẩm</label>
+                <div class="input-group input-group-merge speech-to-text">
+                  <input type="text" name="sku" value="{{$product->sku}}" class="form-control" placeholder="Nhập hoặc nói mã sản phẩm" aria-describedby="text-to-speech-addon" required>
+                  <span class="input-group-text" id="text-to-speech-addon">
+                    <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+
+                <label class="form-label" for="basic-default-fullname">Tên sản phẩm</label>
+                <div class="input-group input-group-merge speech-to-text">
+                  <input type="text" name="name" value="{{$product->name}}" class="form-control" placeholder="Nhập hoặc nói tên sản phẩm" aria-describedby="text-to-speech-addon" required>
+                  <span class="input-group-text" id="text-to-speech-addon">
+                    <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Chọn hãng sản xuất</label>
+                <select class="form-select" name="product_company_id" required>
+                  @foreach ($productCompanies as $productCompany)
+                  <option value="{{ $productCompany->id }}" {{( $productCompany->id == $product->product_company_id) ? 'selected' : '' }}>{{$productCompany->company_short_name}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Chọn danh mục:</label>
+
+                <select class="form-control select2-multiple" name="category_id[]" multiple required>
+
+                  @foreach ($categories as $category)
+                  <option value="{{ $category->id }}" @foreach($product->categories as $productCategory)
+                    {{$productCategory->id == $category->id ? 'selected': ''}}
+                    @endforeach> {{ $category->name }}
+
+                  </option>
+
+                  @endforeach
+                </select>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label" for="basic-default-fullname">Giá sản phẩm:</label>
+                <div class="input-group input-group-merge speech-to-text">
+                  <input type="number" min="0" name="price" value="{{$product->price}}" class="form-control" placeholder="Nhập hoặc nói giá sản phẩm" aria-describedby="text-to-speech-addon" required>
+                  <span class="input-group-text" id="text-to-speech-addon">
+                    <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="form-label" for="basic-default-fullname">Số lượng:</label>
+                <div class="input-group input-group-merge speech-to-text">
+                  <input type="number" min="0" name="stock" value="{{$product->stock}}" class="form-control" placeholder="Nhập hoặc nói số lượng sản phẩm" aria-describedby="text-to-speech-addon" required>
+                  <span class="input-group-text" id="text-to-speech-addon">
+                    <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="form-label" for="basic-default-fullname">Đề xuất cho khách</label>
+                <select class="form-select" name="is_recommended" required>
+
+                  <option value="0" {{($product->is_recommended == 0) ? 'selected' : ''}}>Không</option>
+                  <option value="1" {{($product->is_recommended == 1) ? 'selected' : ''}}>Có</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Ảnh đại diện:</label>
+                <div class="">
+                  <input type="file" class="form-control" name="feature_image_path" onchange="showSinglePicture(this,1);" id="" placeholder="ACME Inc.">
+                  @if (isset($product->feature_image_path))
+                  <img class="avatar1 my-3 img-custom" width="250" height="200" src="{{ $product->feature_image_path }}">
+                  @else
+                  <img class="avatar1 my-3 img-custom" width="250" height="200" src="  https://banksiafdn.com/wp-content/uploads/2019/10/placeholde-image.jpg">
+                  @endif
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label" for="basic-default-fullname">Ảnh chi tiết:</label>
+                <div>
+                  <input type="file" class="form-control" name="image_path[]" onchange="showMultiplePictures(this,1);" id="multiple-images-1" placeholder="" multiple>
+                  <div class="multiple-images-holder-1">
+
+                    @forelse($product->images as $image)
+                    <img class="my-2 img-custom me-3" width="175" height="125" src="{{ $image->image_path }}">
+                    @empty
+                    <img class=" my-3 img-custom" width="250" height="200" src="https://banksiafdn.com/wp-content/uploads/2019/10/placeholde-image.jpg">
+                    @endforelse
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="form-label" for="basic-default-company">Mô tả ngắn</label>
+              <div class="input-group input-group-merge speech-to-text">
+                <textarea class="form-control" name="short_description" placeholder="Điền hoặc nói mô tả ngắn" rows="4">{{$product->short_description}}</textarea>
+                <span class="input-group-text">
+                  <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Mô tả chi tiết</label>
+              <textarea class="form-control tinymce-editor" name="long_description" id="exampleFormControlTextarea1" rows="25">{{$product->long_description}}</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Xác nhận thêm</button>
+            <button type="reset" class="btn btn-secondary">Hủy</button>
+          </form>
+        </div>
+
+      </div>
     </div>
-    <!-- Accordion -->
-    <!-- <h5 class="mt-4">Accordion</h5>
+  </div>
+  <!-- Accordion -->
+  <!-- <h5 class="mt-4">Accordion</h5>
               <div class="row">
                 <div class="col-md mb-4 mb-md-0">
                   <small class="text-light fw-semibold">Basic Accordion</small>
@@ -333,8 +342,8 @@
                   </div>
                 </div>
               </div> -->
-    <!--/ Accordion -->
+  <!--/ Accordion -->
 
-    <!--/ Advance Styling Options -->
+  <!--/ Advance Styling Options -->
 </div>
 @endsection

@@ -25,8 +25,6 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->category = new Category; 
-       
-        
     }
     public function index()
     {

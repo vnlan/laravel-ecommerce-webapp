@@ -1,16 +1,23 @@
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $( document ).ready(function() {
-            $("ul> li").on("click", function() {
-            $("ul> li").removeClass("active");
-            $(this).addClass("active");
-            });
+            // $("ul> li").on("click", function() {
+            // $("ul> li").removeClass("active");
+            // $(this).addClass("active");
+            // });
+            // $("li > ul > li > a").click(function(){
+              
+            //   if($(this).hasClass('active')){
+            //    $(this).parent().parent().addClass('active');
+            //   }
+            // });
+            // $('ul > li > a.active').parents().find('menu-item').addClass('active');
         });
  
-    </script>         -->
+    </script>        
         
         
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
               <span class="app-brand-logo demo">
@@ -68,7 +75,7 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">TinaWatch</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -79,16 +86,29 @@
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
+
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Tổng quan</span>
+            </li>
             <!-- Dashboard -->
-            <li class="menu-item">
-              <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+            <li class="menu-item menu-item {{ request()->is('*admin/welcome*') ? 'active' : '' }}">
+              <a href="{{route('admin.welcome')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-home-circle"></i>
+                <div data-i18n="Analytics">Trang chào mừng</div>
               </a>
             </li>
-
+            
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Thống kê</span>
+            </li>
+            <li class="menu-item {{ request()->is('*admin/analize*') ? 'active' : '' }}">
+              <a href="{{route('analize.index')}}" class="menu-link ">
+                <i class="menu-icon tf-icons bx bxs-bar-chart-alt-2"></i>
+                <div data-i18n="Analytics">Thống kê</div>
+              </a>
+            </li>
             <!-- Layouts -->
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Layouts</div>
@@ -121,282 +141,95 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
 
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Pages</span>
+              <span class="menu-header-text">Quản lý nghiệp vụ</span>
             </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Account Settings</div>
+            <li class="menu-item {{ request()->is('*admin/categories*') ? 'active' : '' }}">
+              <a href="{{route('categories.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-category"></i>
+                <div data-i18n="Analytics">Quản lý danh mục</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">Account</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">Notifications</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-account-settings-connections.html" class="menu-link">
-                    <div data-i18n="Connections">Connections</div>
-                  </a>
-                </li>
-              </ul>
             </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                <div data-i18n="Authentications">Authentications</div>
+            <li class="menu-item {{ request()->is('*admin/product-companies*') ? 'active' : '' }}">
+              <a href="{{route('product-companies.index')}}" class="menu-link">
+                <i class='menu-icon tf-icons bx bxs-factory'></i>
+                <div data-i18n="Analytics">Quản lý hãng</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic">Login</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic">Register</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic">Forgot Password</div>
-                  </a>
-                </li>
-              </ul>
             </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                <div data-i18n="Misc">Misc</div>
+            <li class="menu-item {{ request()->is('*admin/products*') ? 'active' : '' }}">
+              <a href="{{route('products.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-watch"></i>
+                <div data-i18n="Analytics">Quản lý sản phẩm</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="pages-misc-error.html" class="menu-link">
-                    <div data-i18n="Error">Error</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-misc-under-maintenance.html" class="menu-link">
-                    <div data-i18n="Under Maintenance">Under Maintenance</div>
-                  </a>
-                </li>
-              </ul>
             </li>
+
+            <li class="menu-item {{ request()->is('*admin/orders*') ? 'active' : '' }}">
+              <a href="{{route('orders.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-shopping-bags"></i>
+                <div data-i18n="Analytics">Quản lý đơn hàng</div>
+              </a>
+            </li>
+            <li class="menu-item {{ request()->is('*admin/sliders*') ? 'active' : '' }}">
+              <a href="{{route('sliders.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-slideshow"></i>
+                <div data-i18n="Analytics">Quản lý slider</div>
+              </a>
+            </li>
+            <li class="menu-item {{ request()->is('*admin/blogs*') ? 'active' : '' }}">
+              <a href="" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-book-bookmark"></i>
+                <div data-i18n="Analytics">Quản lý blog</div>
+              </a>
+            </li>
+
+    
             <!-- Components -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Quản lý người dùng</span></li>
             <!-- Cards -->
-            <li class="menu-item">
-              <a href="cards-basic.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">Cards</div>
-              </a>
-            </li>
+  
             <!-- User interface -->
-            <li class="menu-item active open">
+            <li class="menu-item open">
               <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="User interface">User interface</div>
+                <i class="menu-icon tf-icons bx bxs-user-account"></i>
+                <div data-i18n="User interface">Quản lý tài khoản</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="ui-accordion.html" class="menu-link">
-                    <div data-i18n="Accordion">Accordion</div>
+        
+     
+                <li class="menu-item {{ request()->is('*admin/employees*') ? 'active' : '' }}">
+                  <a href="{{route('employees.index')}}" class="menu-link">
+                    <div data-i18n="Buttons">Quản lý Nhân viên</div>
                   </a>
                 </li>
-                <li class="menu-item {{ request()->is('*test') ? 'active' : '' }}">
-                  <a href="/test" class="menu-link">
-                    <div data-i18n="Alerts">Lân</div>
-                  </a>
-                </li>
-                <li class="menu-item {{ request()->is('*test2*') ? 'active' : '' }}">
-                  <a href="/test2" class="menu-link">
-                    <div data-i18n="Badges">Lân 2</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-buttons.html" class="menu-link">
-                    <div data-i18n="Buttons">Buttons</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-carousel.html" class="menu-link">
-                    <div data-i18n="Carousel">Carousel</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-collapse.html" class="menu-link">
-                    <div data-i18n="Collapse">Collapse</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-dropdowns.html" class="menu-link">
-                    <div data-i18n="Dropdowns">Dropdowns</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-footer.html" class="menu-link">
-                    <div data-i18n="Footer">Footer</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-list-groups.html" class="menu-link">
-                    <div data-i18n="List Groups">List groups</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-modals.html" class="menu-link">
-                    <div data-i18n="Modals">Modals</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-navbar.html" class="menu-link">
-                    <div data-i18n="Navbar">Navbar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-offcanvas.html" class="menu-link">
-                    <div data-i18n="Offcanvas">Offcanvas</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-pagination-breadcrumbs.html" class="menu-link">
-                    <div data-i18n="Pagination &amp; Breadcrumbs">Pagination &amp; Breadcrumbs</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-progress.html" class="menu-link">
-                    <div data-i18n="Progress">Progress</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-spinners.html" class="menu-link">
-                    <div data-i18n="Spinners">Spinners</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-tabs-pills.html" class="menu-link">
-                    <div data-i18n="Tabs &amp; Pills">Tabs &amp; Pills</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-toasts.html" class="menu-link">
-                    <div data-i18n="Toasts">Toasts</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-tooltips-popovers.html" class="menu-link">
-                    <div data-i18n="Tooltips & Popovers">Tooltips &amp; popovers</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="ui-typography.html" class="menu-link">
-                    <div data-i18n="Typography">Typography</div>
+       
+                <li class="menu-item {{ request()->is('*admin/customers*') ? 'active' : '' }}">
+                  <a href="{{route('customers.index')}}" class="menu-link">
+                    <div data-i18n="Collapse">Quản lý Khách hàng</div>
                   </a>
                 </li>
               </ul>
             </li>
 
-            <!-- Extended components -->
-            <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-copy"></i>
-                <div data-i18n="Extended UI">Extended UI</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="extended-ui-perfect-scrollbar.html" class="menu-link">
-                    <div data-i18n="Perfect Scrollbar">Perfect scrollbar</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-text-divider.html" class="menu-link">
-                    <div data-i18n="Text Divider">Text Divider</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
+     
 
-            <li class="menu-item">
-              <a href="icons-boxicons.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-crown"></i>
-                <div data-i18n="Boxicons">Boxicons</div>
-              </a>
-            </li>
+      
 
             <!-- Forms & Tables -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
-            <!-- Forms -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Form Elements">Form Elements</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="forms-basic-inputs.html" class="menu-link">
-                    <div data-i18n="Basic Inputs">Basic Inputs</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="forms-input-groups.html" class="menu-link">
-                    <div data-i18n="Input groups">Input groups</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Form Layouts">Form Layouts</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="form-layouts-vertical.html" class="menu-link">
-                    <div data-i18n="Vertical Form">Vertical Form</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="form-layouts-horizontal.html" class="menu-link">
-                    <div data-i18n="Horizontal Form">Horizontal Form</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Cá nhân</span></li>
+         
             <!-- Tables -->
-            <li class="menu-item">
-              <a href="tables-basic.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Tables</div>
-              </a>
-            </li>
-            <!-- Misc -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-            <li class="menu-item">
-              <a
-                href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                target="_blank"
-                class="menu-link"
-              >
-                <i class="menu-icon tf-icons bx bx-support"></i>
-                <div data-i18n="Support">Support</div>
+            <li class="menu-item {{ request()->is('*admin/my-info*') ? 'active' : '' }}">
+              <a href="{{route('admin.myinfo')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user"></i>
+                <div data-i18n="Tables">Thông tin cá nhân</div>
               </a>
             </li>
             <li class="menu-item">
-              <a
-                href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank"
-                class="menu-link"
-              >
-                <i class="menu-icon tf-icons bx bx-file"></i>
-                <div data-i18n="Documentation">Documentation</div>
+              <a href="{{route('admin.auth.logout')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-power-off"></i>
+                <div data-i18n="Tables">Đăng xuất</div>
               </a>
             </li>
           </ul>

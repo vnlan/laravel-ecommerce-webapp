@@ -75,15 +75,13 @@ class ProductController extends Controller
                 'product_company_id' => $request->product_company_id,
                 'short_description' => $request->short_description,
                 'long_description'=> $request->long_description,
+                'is_recommended' => $request->is_recommended,
             ];
             $featureImageUploaded = $this->storageFileUpload($request, 'feature_image_path', 'v1/admin-page/images/products/' . Str::slug($request->name) . '/feature');
-            
-            if (!empty($avatarImageUploaded)) {
+            if(!empty($featureImageUploaded)){
                 $productMapping['feature_image_path'] = $featureImageUploaded['file_path'];
-            }else{
-                $productMapping['feature_image_path'] = null;
+              
             }
-          
             $productCreated = $this->product->create($productMapping);
             $productCreated->categories()->attach($request->category_id);
             //Add detail images for product
@@ -156,6 +154,7 @@ class ProductController extends Controller
                 'product_company_id' => $request->product_company_id,
                 'short_description' => $request->short_description,
                 'long_description'=> $request->long_description,
+                'is_recommended' => $request->is_recommended,
             ];
             $featureImageUploaded = $this->storageFileUpload($request, 'feature_image_path', 'v1/admin-page/images/products/' . Str::slug($request->name) . '/feature');
             if(!empty($featureImageUploaded)){

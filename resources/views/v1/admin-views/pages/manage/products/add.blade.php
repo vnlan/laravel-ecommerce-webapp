@@ -94,7 +94,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 mb-3">
+              <div class="col-md-4 mb-3">
                 <label class="form-label" for="basic-default-fullname">Giá sản phẩm:</label>
                 <div class="input-group input-group-merge speech-to-text">
                   <input type="number" min="0" name="price" class="form-control" placeholder="Nhập hoặc nói giá sản phẩm" aria-describedby="text-to-speech-addon" required>
@@ -104,7 +104,7 @@
                 </div>
               </div>
 
-              <div class="col-md-6 mb-3">
+              <div class="col-md-4 mb-3">
                 <label class="form-label" for="basic-default-fullname">Số lượng:</label>
                 <div class="input-group input-group-merge speech-to-text">
                   <input type="number" min="0" name="stock" class="form-control" placeholder="Nhập hoặc nói số lượng sản phẩm" aria-describedby="text-to-speech-addon" required>
@@ -112,6 +112,15 @@
                     <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
                   </span>
                 </div>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="form-label" for="basic-default-fullname">Đề xuất cho khách</label>
+                <select class="form-select" name="is_recommended" required>
+                 
+                    <option value="0">Không</option>
+                    <option value="1">Có</option>
+                </select>
               </div>
             </div>
             <div class="row">

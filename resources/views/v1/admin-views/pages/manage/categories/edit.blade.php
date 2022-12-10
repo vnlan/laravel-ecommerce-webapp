@@ -28,7 +28,7 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between my-2">
                     <div class="p-2">
-                        <h5 class="card-title mb-0">Thêm mới danh mục sản phẩm</h5>
+                        <h5 class="card-title mb-0">Sửa danh mục sản phẩm</h5>
                     </div>
                     <!-- <div class="pt-md-0">
                         <button class="dt-button create-new btn btn-primary" type="button">
