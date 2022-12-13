@@ -38,10 +38,10 @@ class ShopProductController extends Controller
     public function detail($id)
     {
         //
-
+        $randomProducts = $this->product->inRandomOrder()->limit(5)->get();
         $product = $this->product->find($id);
 
-        return view('v1.shop-views.pages.product-detail', compact('product'));
+        return view('v1.shop-views.pages.product-detail', compact('product','randomProducts'));
     }
 
 

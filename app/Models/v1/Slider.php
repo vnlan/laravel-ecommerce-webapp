@@ -9,4 +9,9 @@ class Slider extends Model
 {
     protected $table = 'sliders';
     protected $guarded= ['id'];
+
+    public function employee ()
+    {
+        return $this->belongsTo(User::class, 'employee_id');
+    }
 }

@@ -87,7 +87,7 @@
                   <th>ID</th>
                   <th>Tiêu đề</th>
                   <th>Ảnh đại diện</th>
-                  <th>Mô tả ngắn</th>
+                  <th>Người tạo</th>
                   <th>Hành động</th>
                 </tr>
               </thead>
@@ -105,7 +105,7 @@
 
 
                   </td>
-                  <td>{{$slider->short_description}}</td>
+                  <td>{{$slider->employee->email}}</td>
 
                   <td>
                     <a type="button" href="{{ route('sliders.edit', ['id' => $slider->id]) }}" class="btn btn-primary">

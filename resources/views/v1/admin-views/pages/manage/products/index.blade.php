@@ -27,7 +27,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-  @include('v1.admin-views.partials.content-header',['pageParent' => 'Quản lý Sản phẩm', 'pageName' => 'Tất cả Sảm phẩm'])
+  @include('v1.admin-views.partials.content-header',['pageParent' => 'Quản lý Sản phẩm', 'pageName' => 'Tất cả Sản phẩm'])
 
   <div class="toast-container">
     @if (session('success'))
@@ -66,13 +66,13 @@
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between my-2">
           <div class="p-2">
-            <h5 class="card-title mb-0">Danh sách Hãng sản xuất</h5>
+            <h5 class="card-title mb-0">Danh sách các sản phẩm</h5>
           </div>
           <div class="pt-md-0">
             <a href="{{ route('products.create') }}" class="dt-button create-new btn btn-success" type="button">
               <span>
                 <i class="bx bx-plus me-sm-2"></i>
-                <span class="d-none d-sm-inline-block">Thêm mới Hãng</span>
+                <span class="d-none d-sm-inline-block">Thêm mới Sản phẩm</span>
               </span>
             </a>
           </div>

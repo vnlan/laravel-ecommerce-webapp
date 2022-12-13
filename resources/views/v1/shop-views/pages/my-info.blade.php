@@ -34,8 +34,8 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a href="#">Cửa hàng</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Đặt hàng</li>
+
+                <li class="breadcrumb-item active" aria-current="page">Tài khoản cá nhân</li>
             </ol>
         </div><!-- End .container -->
     </nav><!-- End .breadcrumb-nav -->

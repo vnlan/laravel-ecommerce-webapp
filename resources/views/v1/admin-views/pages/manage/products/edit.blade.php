@@ -174,7 +174,7 @@
               <textarea class="form-control tinymce-editor" name="long_description" id="exampleFormControlTextarea1" rows="25">{{$product->long_description}}</textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Xác nhận thêm</button>
+            <button type="submit" class="btn btn-primary">Xác nhận sửa</button>
             <button type="reset" class="btn btn-secondary">Hủy</button>
           </form>
         </div>

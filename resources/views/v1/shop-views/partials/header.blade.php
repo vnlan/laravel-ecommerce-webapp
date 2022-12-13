@@ -48,8 +48,8 @@
                     <i class="icon-bars"></i>
                 </button>
 
-                <a href="index.html" class="logo">
-                    <img src="assets/images/demos/demo-4/logo.png" alt="Molla Logo" width="105" height="25">
+                <a href="/" class="logo">
+                    <img src="{{asset('v1/themes/molla-shop-template/assets/images/TinaWatch2.png')}}" alt="Molla Logo" width="150" height="150">
                 </a>
             </div><!-- End .header-left -->
 

@@ -18,12 +18,12 @@
             <div class="row">
                 <div class="col-sm-6 col-lg-3">
                     <div class="widget widget-about">
-                        <img src="assets/images/demos/demo-4/logo-footer.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
-                        <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+                        <img src="{{asset('v1/themes/molla-shop-template/assets/images/TinaWatch2.png')}}" class="footer-logo" alt="Footer Logo" width="150" height="150">
+                        <p>Tinawatch - Cửa hàng đồng hồ uy tín đẹp giá cả phải chăng nhất</p>
 
                         <div class="widget-call">
                             <i class="icon-phone"></i>
-                            Got Question? Call us 24/7
+                            Có câu hỏi? Gọi ngay chúng tôi
                             <a href="tel:#">+0123 456 789</a>
                         </div><!-- End .widget-call -->
                     </div><!-- End .widget about-widget -->
@@ -31,43 +31,43 @@
 
                 <div class="col-sm-6 col-lg-3">
                     <div class="widget">
-                        <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+                        <h4 class="widget-title">Các đường dẫn</h4><!-- End .widget-title -->
 
                         <ul class="widget-list">
-                            <li><a href="about.html">About Molla</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">How to shop on Molla</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="contact.html">Contact us</a></li>
+                            <li><a href="about.html">Về Tinawatch</a></li>
+                            <li><a href="#">Dịch vụ của chúng tôi</a></li>
+                            <li><a href="#">Mua sắm</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Liên hệ</a></li>
                         </ul><!-- End .widget-list -->
                     </div><!-- End .widget -->
                 </div><!-- End .col-sm-6 col-lg-3 -->
 
                 <div class="col-sm-6 col-lg-3">
                     <div class="widget">
-                        <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+                        <h4 class="widget-title">Dịch vụ khách hàng</h4><!-- End .widget-title -->
 
                         <ul class="widget-list">
-                            <li><a href="#">Payment Methods</a></li>
-                            <li><a href="#">Money-back guarantee!</a></li>
-                            <li><a href="#">Returns</a></li>
-                            <li><a href="#">Shipping</a></li>
-                            <li><a href="#">Terms and conditions</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Phương thức thanh toán</a></li>
+                            <li><a href="#">Đảm bảo chất lượng</a></li>
+                            <li><a href="#">Chính sách hoàn trả</a></li>
+                            <li><a href="#">Chính sách ship</a></li>
+                            <li><a href="#">Yêu cầu và điều kiện</a></li>
+                            <li><a href="#">Chính sách bảo mật</a></li>
                         </ul><!-- End .widget-list -->
                     </div><!-- End .widget -->
                 </div><!-- End .col-sm-6 col-lg-3 -->
 
                 <div class="col-sm-6 col-lg-3">
                     <div class="widget">
-                        <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+                        <h4 class="widget-title">Tài khoản của tôi</h4><!-- End .widget-title -->
 
                         <ul class="widget-list">
-                            <li><a href="#">Sign In</a></li>
-                            <li><a href="cart.html">View Cart</a></li>
-                            <li><a href="#">My Wishlist</a></li>
-                            <li><a href="#">Track My Order</a></li>
-                            <li><a href="#">Help</a></li>
+                            <li><a href="#">Đăng nhập</a></li>
+                            <li><a href="#">Xem giỏ</a></li>
+                            <li><a href="#">Danh sách yêu thích</a></li>
+                            <li><a href="#">Theo dõi đơn hàng</a></li>
+                            <li><a href="#">Trợ giúp</a></li>
                         </ul><!-- End .widget-list -->
                     </div><!-- End .widget -->
                 </div><!-- End .col-sm-6 col-lg-3 -->
