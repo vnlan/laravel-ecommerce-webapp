@@ -178,7 +178,7 @@
               </a>
             </li>
             <li class="menu-item {{ request()->is('*admin/blogs*') ? 'active' : '' }}">
-              <a href="" class="menu-link">
+              <a href="{{route('blogs.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-book-bookmark"></i>
                 <div data-i18n="Analytics">Quản lý blog</div>
               </a>

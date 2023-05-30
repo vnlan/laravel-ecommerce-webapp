@@ -59,6 +59,18 @@ Route::prefix('/')->group(function () {
         Route::get('/delete/{rowId}',[
             'as' => 'shop.cart.delete',
             'uses' => 'App\Http\Controllers\v1\Shop\CartController@delete']);
+        Route::get('/update',[
+            'as' => 'shop.cart.update',
+            'uses' => 'App\Http\Controllers\v1\Shop\CartController@update']);
+    });
+    Route::prefix('blogs')->group(function () {
+        Route::get('/',[
+            'as' => 'shop.blogs.index',
+            'uses' => 'App\Http\Controllers\v1\Shop\BlogController@index']);
+        Route::get('/detail/{id}',[
+            'as' => 'shop.blogs.detail',
+            'uses' => 'App\Http\Controllers\v1\Shop\BlogController@detail']);
+     
     });
     Route::prefix('checkout')->middleware('shop.auth')->group(function () {
         Route::get('/',[
@@ -259,5 +271,25 @@ Route::prefix('admin')->group(function () {
         Route::post('/update/{id}',[
             'as' => 'sliders.update',
             'uses' => 'App\Http\Controllers\v1\SliderController@update']);
+    });
+    Route::prefix('blogs')->middleware('admin.auth:4')->group(function () {
+        Route::get('/',[
+            'as' => 'blogs.index',
+            'uses' => 'App\Http\Controllers\v1\BlogController@index']);
+        Route::get('/create',[
+            'as' => 'blogs.create',
+            'uses' => 'App\Http\Controllers\v1\BlogController@create']);
+        Route::post('/store',[
+            'as' => 'blogs.store',
+            'uses' => 'App\Http\Controllers\v1\BlogController@store']);
+        Route::get('/edit/{id}',[
+            'as' => 'blogs.edit',
+            'uses' => 'App\Http\Controllers\v1\BlogController@edit']);
+        Route::get('/delete/{id}',[
+            'as' => 'blogs.delete',
+            'uses' => 'App\Http\Controllers\v1\BlogController@delete']);
+        Route::post('/update/{id}',[
+            'as' => 'blogs.update',
+            'uses' => 'App\Http\Controllers\v1\BlogController@update']);
     });
 });

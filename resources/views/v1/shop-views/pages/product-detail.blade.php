@@ -255,7 +255,7 @@
                 <div class="product product-7 text-center">
                     <figure class="product-media">
                         <a href="{{route('shop.products.detail',['id' => $product->id])}}">
-                            <img src="{{$product->feature_image_path}}" alt="Product image" class="product-image">
+                            <img src="{{optional($product)->feature_image_path}}" alt="Product image" class="product-image">
                         </a>
 
                      

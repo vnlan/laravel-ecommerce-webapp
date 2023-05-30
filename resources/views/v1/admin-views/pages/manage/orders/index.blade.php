@@ -108,7 +108,7 @@
                   @endif
                  
                   <td>
-                    @if ($order->status == 5)
+                    @if ($order->status == 5 || $order->status == 4)
                     <a type="button" href="{{ route('orders.edit', ['id' => $order->id]) }}" class="btn btn-primary">
                       <span>
                         <i class='bx bxs-edit'></i>

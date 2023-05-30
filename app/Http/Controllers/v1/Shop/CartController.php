@@ -96,9 +96,16 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        // $cart = Cart::content()->where('rowId',$request->rowId);
+        // if($cart->isNotEmpty()){
+        //     Cart::update($request->rowId);
+        // }
+            Cart::update($request->rowId, $request->qty);
+        
+    
     }
 
     /**

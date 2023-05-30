@@ -263,7 +263,7 @@
                    
                         </li>
                         <li class="megamenu-container {{ request()->is('*blogs*') ? 'active' : '' }}">
-                            <a href="#" class="sf-with-ul">Bài viết</a>
+                            <a href="/blogs" class="sf-with-ul">Bài viết</a>
 
 
                         </li>

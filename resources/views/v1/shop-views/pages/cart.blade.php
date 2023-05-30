@@ -7,6 +7,12 @@
 @endsection
 
 
+@section('v1-shop-js')
+<script src="{{ asset('v1/themes/molla-shop-template/assets/js/bootstrap-input-spinner.js') }}">
+</script>
+<script src="{{ asset('v1/resources/js/shop-page/reuseable/update-cart.js') }}"></script>
+@endsection
+
 @section('v1-shop-css')
 <link rel="stylesheet" href="{{ asset('v1/resources/css/admin-page/reuseable/hide-input-file.css') }}">
 </link>
@@ -69,9 +75,14 @@
                                     <td class="price-col">{{ number_format($cart->price)}} đ</td>
                                     <td class="quantity-col">
                                         <div class="cart-product-quantity">
-                                            <input type="number" class="form-control" value="{{$cart->qty}}" min="1" max="10" step="1" data-decimals="0" required>
+                                            <input type="number" id="inputCartQty{{$cart->rowId}}" class="form-control" value="{{$cart->qty}}" min="1" max="10" step="1" data-decimals="0" onchange="updateCart('{{$cart->rowId}}')"  required>
                                         </div><!-- End .cart-product-quantity -->
+                                    
+                                    
                                     </td>
+
+
+
                                     <td class="price-col">{{number_format($cart->price * $cart->qty)}} đ</td>
                                     <td class="remove-col"><a href="{{route('shop.cart.delete', ['rowId' => $cart->rowId])}}" class="btn-remove"><i class="icon-close"></i></a></td>
                                 </tr>
