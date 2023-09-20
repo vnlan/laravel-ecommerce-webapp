@@ -9,4 +9,9 @@ class ProductCompany extends Model
 {
     protected $table = 'product_company';
     protected $fillable= ['company_name','company_short_name', 'avatar_path','description'];
+    public function products ()
+    {
+        return $this->hasMany(Product::class);
+    }
+
 }

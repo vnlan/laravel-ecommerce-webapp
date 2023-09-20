@@ -11,6 +11,45 @@
     <link rel="stylesheet" href="{{ asset('v1/resources/css/admin-page/reuseable/color-toast.css') }}">
     @endsection
 
+	@section('v1-shop-js')
+    <script type="text/javascript" src="{{ asset('v1/resources/js/shop-page/reuseable/filter-price.js') }}"></script>
+    @endsection
+
+
+    <style>
+    	.slider {
+    		-webkit-appearance: none;
+    		width: 100%;
+    		height: 15px;
+    		border-radius: 5px;
+    		background: #d3d3d3;
+    		outline: none;
+    		opacity: 0.7;
+    		-webkit-transition: .2s;
+    		transition: opacity .2s;
+    	}
+
+    	.slider::-webkit-slider-thumb {
+    		-webkit-appearance: none;
+    		appearance: none;
+    		width: 25px;
+    		height: 25px;
+    		border-radius: 50%;
+    		background: #c96;
+    		cursor: pointer;
+    	}
+
+    	.slider::-moz-range-thumb {
+    		width: 25px;
+    		height: 25px;
+    		border-radius: 50%;
+    		background: #04AA6D;
+    		cursor: pointer;
+    	}
+    </style>
+
+
+
     @section('v1-shop-content')
     <div class="my-3"></div>
     <main class="main">
@@ -33,9 +72,11 @@
 
     	<div class="page-content">
     		<div class="container">
-    			<div class="row">
-    				<div class="col-lg-9">
-    					<!-- <div class="toolbox">
+    			<form action="{{route('shop.products.filter-by-multiple')}}" method="post" enctype="multipart/form-data">
+    				@csrf
+    				<div class="row">
+    					<div class="col-lg-9">
+    						<!-- <div class="toolbox">
                 				<div class="toolbox-left">
                 					<div class="toolbox-info">
                 						Showing <span>9 of 56</span> Products
@@ -98,11 +139,11 @@
                 					</div>
                 				</div>
                 			</div> -->
-    					<!-- End .toolbox -->
+    						<!-- End .toolbox -->
 
-    					<div class="products mb-3">
-    						<div class="row justify-content-center">
-    							<!-- <div class="col-6 col-md-4 col-lg-4">
+    						<div class="products mb-3">
+    							<div class="row justify-content-center">
+    								<!-- <div class="col-6 col-md-4 col-lg-4">
                                         <div class="product product-7 text-center">
                                             <figure class="product-media">
                                                 <span class="product-label label-new">New</span>
@@ -151,41 +192,46 @@
                                             </div>
                                         </div>
                                     </div> -->
-    							@foreach ($products as $product)
+    								@foreach ($products as $product)
 
-    							<div class="col-6 col-md-4 col-lg-4">
-    								<div class="product product-7 text-center">
-    									<figure class="product-media">
-    										<a href="{{route('shop.products.detail',['id' => $product->id])}}">
-    											<img src="{{$product->feature_image_path}}" alt="Product image" class="product-image">
-    										</a>
-    										<!-- 
+    								<div class="col-6 col-md-4 col-lg-4">
+    									<div class="product product-7 text-center">
+    										<figure class="product-media">
+    											<a href="{{route('shop.products.detail',['id' => $product->id])}}">
+    												<img src="{{$product->feature_image_path}}" alt="Product image" class="product-image">
+    											</a>
+    											<!-- 
                                                 <div class="product-action-vertical">
                                                     <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
                                                     <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
                                                     <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
                                                 </div> -->
-    										<!-- End .product-action-vertical -->
+    											<!-- End .product-action-vertical -->
 
-    										<div class="product-action">
-    											<a href="{{route('shop.cart.addOne',['id' => $product->id])}}" class="btn-product btn-cart"><span>Thêm vào giỏ hàng</span></a>
-    										</div><!-- End .product-action -->
+    											<div class="product-action">
+    												<a href="{{route('shop.cart.addOne',['id' => $product->id])}}" class="btn-product btn-cart"><span>Thêm vào giỏ hàng</span></a>
+    											</div><!-- End .product-action -->
 
-    									</figure><!-- End .product-media -->
+    										</figure><!-- End .product-media -->
 
-    									<div class="product-body">
-    										<div class="product-cat font-weight-normal">
-    											<a href="#">
+    										<div class="product-body">
+    											<div class="product-cat font-weight-normal">
+
+    												<a href="{{route('shop.products.filter-by-brand',['id' => $product->companies->id])}}">
+
+    													{{$product->companies->company_name}} -
+    												</a>
     												@foreach ($product->categories as $category)
-    												{{$category->name}},
+    												<a href="{{route('shop.products.filter-by-category',['id' => $category->id])}}">
+    													{{$category->name}},
+    												</a>
     												@endforeach
-    											</a>
-    										</div><!-- End .product-cat -->
-    										<h3 class="product-title"><a href="{{route('shop.products.detail',['id' => $product->id])}}">{{$product->name}}</a></h3><!-- End .product-title -->
-    										<div class="product-price">
-    											{{number_format($product->price)}}đ
-    										</div><!-- End .product-price -->
-    										<!-- <div class="ratings-container">
+    											</div><!-- End .product-cat -->
+    											<h3 class="product-title"><a href="{{route('shop.products.detail',['id' => $product->id])}}">{{$product->name}}</a></h3><!-- End .product-title -->
+    											<div class="product-price">
+    												{{number_format($product->price)}}đ
+    											</div><!-- End .product-price -->
+    											<!-- <div class="ratings-container">
                                                     <div class="ratings">
                                                         <div class="ratings-val" style="width: 0%;"></div>
                                                     </div>
@@ -193,7 +239,7 @@
                                                 </div> -->
 
 
-    										<!-- <div class="product-nav product-nav-thumbs">
+    											<!-- <div class="product-nav product-nav-thumbs">
                                                     <a href="#" class="active">
                                                         <img src="assets/images/products/product-5-thumb.jpg" alt="product desc">
                                                     </a>
@@ -201,17 +247,17 @@
                                                         <img src="assets/images/products/product-5-2-thumb.jpg" alt="product desc">
                                                     </a>
                                                 </div> -->
-    										<!-- End .product-nav -->
-    									</div><!-- End .product-body -->
-    								</div><!-- End .product -->
-    							</div><!-- End .col-sm-6 col-lg-4 -->
-    							@endforeach
+    											<!-- End .product-nav -->
+    										</div><!-- End .product-body -->
+    									</div><!-- End .product -->
+    								</div><!-- End .col-sm-6 col-lg-4 -->
+    								@endforeach
 
-    						</div><!-- End .row -->
-    					</div><!-- End .products -->
+    							</div><!-- End .row -->
+    						</div><!-- End .products -->
 
-    					<nav class="d-flex justify-content-center">
-    						<!-- <ul class="pagination justify-content-center">
+    						<nav class="d-flex justify-content-center">
+    							<!-- <ul class="pagination justify-content-center">
 							        <li class="page-item disabled">
 							            <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
 							                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
@@ -231,187 +277,167 @@
 							        </li>
 							    </ul> -->
 
-    						{{ $products->links('pagination::bootstrap-4') }}
-    					</nav>
-    				</div><!-- End .col-lg-9 -->
-    				<aside class="col-lg-3 order-lg-first">
-    					<div class="sidebar sidebar-shop">
-    						<div class="widget widget-clean">
-    							<label>Filters:</label>
-    							<a href="#" class="sidebar-filter-clear">Clean All</a>
-    						</div><!-- End .widget widget-clean -->
+    							{{ $products->links('pagination::bootstrap-4') }}
+    						</nav>
+    					</div><!-- End .col-lg-9 -->
 
-    						<div class="widget widget-collapsible">
-    							<h3 class="widget-title">
-    								<a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
-    									Danh mục
-    								</a>
-    							</h3><!-- End .widget-title -->
 
-    							<div class="collapse show" id="widget-1">
-    								<div class="widget-body">
-    									<div class="filter-items filter-items-count">
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="cat-1">
-    												<label class="custom-control-label" for="cat-1">Dresses</label>
-    											</div><!-- End .custom-checkbox -->
-    											<span class="item-count">3</span>
-    										</div><!-- End .filter-item -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="cat-2">
-    												<label class="custom-control-label" for="cat-2">T-shirts</label>
-    											</div><!-- End .custom-checkbox -->
-    											<span class="item-count">0</span>
-    										</div><!-- End .filter-item -->
+    					<aside class="col-lg-3 order-lg-first">
+    						<div class="sidebar sidebar-shop">
+    							<div class="widget widget-clean">
+    								<label>Bộ lọc:</label>
+    								<a href="#" class="sidebar-filter-clear">Xóa bộ lọc</a>
+    							</div><!-- End .widget widget-clean -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="cat-3">
-    												<label class="custom-control-label" for="cat-3">Bags</label>
-    											</div><!-- End .custom-checkbox -->
-    											<span class="item-count">4</span>
-    										</div><!-- End .filter-item -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="cat-4">
-    												<label class="custom-control-label" for="cat-4">Jackets</label>
-    											</div><!-- End .custom-checkbox -->
-    											<span class="item-count">2</span>
-    										</div><!-- End .filter-item -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="cat-5">
-    												<label class="custom-control-label" for="cat-5">Shoes</label>
-    											</div><!-- End .custom-checkbox -->
-    											<span class="item-count">2</span>
-    										</div><!-- End .filter-item -->
+    							<div class="widget widget-collapsible">
+    								<h3 class="widget-title">
+    									<a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
+    										Danh mục
+    									</a>
+    								</h3><!-- End .widget-title -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="cat-6">
-    												<label class="custom-control-label" for="cat-6">Jumpers</label>
-    											</div><!-- End .custom-checkbox -->
-    											<span class="item-count">1</span>
-    										</div><!-- End .filter-item -->
+    								<div class="collapse show" id="widget-1">
+    									<div class="widget-body">
+    										<div class="filter-items filter-items-count">
+    											@foreach ($categories as $category)
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="cat-7">
-    												<label class="custom-control-label" for="cat-7">Jeans</label>
-    											</div><!-- End .custom-checkbox -->
-    											<span class="item-count">1</span>
-    										</div><!-- End .filter-item -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="cat-8">
-    												<label class="custom-control-label" for="cat-8">Sportwear</label>
-    											</div><!-- End .custom-checkbox -->
-    											<span class="item-count">0</span>
-    										</div><!-- End .filter-item -->
-    									</div><!-- End .filter-items -->
-    								</div><!-- End .widget-body -->
-    							</div><!-- End .collapse -->
-    						</div><!-- End .widget -->
+    											<div class="filter-item">
+    												<div class="custom-control custom-radio">
+    													<input type="radio" name="category" value="{{$category->id}}" class="custom-control-input" id="cat-{{$category->id}}">
+    													<label class="custom-control-label" for="cat-{{$category->id}}">{{$category->name}}</label>
+    												</div><!-- End .custom-checkbox -->
+
+    											</div><!-- End .filter-item -->
+    											@endforeach
 
 
 
 
 
-    						<div class="widget widget-collapsible">
-    							<h3 class="widget-title">
-    								<a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true" aria-controls="widget-4">
-    									Hãng sản xuất
 
-    								</a>
-    							</h3><!-- End .widget-title -->
 
-    							<div class="collapse show" id="widget-4">
-    								<div class="widget-body">
-    									<div class="filter-items">
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="brand-1">
-    												<label class="custom-control-label" for="brand-1">Next</label>
-    											</div><!-- End .custom-checkbox -->
-    										</div><!-- End .filter-item -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="brand-2">
-    												<label class="custom-control-label" for="brand-2">River Island</label>
-    											</div><!-- End .custom-checkbox -->
-    										</div><!-- End .filter-item -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="brand-3">
-    												<label class="custom-control-label" for="brand-3">Geox</label>
-    											</div><!-- End .custom-checkbox -->
-    										</div><!-- End .filter-item -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="brand-4">
-    												<label class="custom-control-label" for="brand-4">New Balance</label>
-    											</div><!-- End .custom-checkbox -->
-    										</div><!-- End .filter-item -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="brand-5">
-    												<label class="custom-control-label" for="brand-5">UGG</label>
-    											</div><!-- End .custom-checkbox -->
-    										</div><!-- End .filter-item -->
+    										</div><!-- End .filter-items -->
+    									</div><!-- End .widget-body -->
+    								</div><!-- End .collapse -->
+    							</div><!-- End .widget -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="brand-6">
-    												<label class="custom-control-label" for="brand-6">F&F</label>
-    											</div><!-- End .custom-checkbox -->
-    										</div><!-- End .filter-item -->
 
-    										<div class="filter-item">
-    											<div class="custom-control custom-checkbox">
-    												<input type="checkbox" class="custom-control-input" id="brand-7">
-    												<label class="custom-control-label" for="brand-7">Nike</label>
-    											</div><!-- End .custom-checkbox -->
-    										</div><!-- End .filter-item -->
 
-    									</div><!-- End .filter-items -->
-    								</div><!-- End .widget-body -->
-    							</div><!-- End .collapse -->
-    						</div><!-- End .widget -->
 
-    						<div class="widget widget-collapsible">
-    							<h3 class="widget-title">
-    								<a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
-    									Price
-    								</a>
-    							</h3><!-- End .widget-title -->
 
-    							<div class="collapse show" id="widget-5">
-    								<div class="widget-body">
-    									<div class="filter-price">
-    										<div class="filter-price-text">
-    											Price Range:
-    											<span id="filter-price-range"></span>
-    										</div><!-- End .filter-price-text -->
+    							<div class="widget widget-collapsible">
+    								<h3 class="widget-title">
+    									<a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true" aria-controls="widget-4">
+    										Hãng sản xuất
 
-    										<div id="price-slider"></div><!-- End #price-slider -->
-    									</div><!-- End .filter-price -->
-    								</div><!-- End .widget-body -->
-    							</div><!-- End .collapse -->
-    						</div><!-- End .widget -->
-    					</div><!-- End .sidebar sidebar-shop -->
-    				</aside><!-- End .col-lg-3 -->
-    			</div><!-- End .row -->
+    									</a>
+    								</h3><!-- End .widget-title -->
+
+    								<div class="collapse show" id="widget-4">
+    									<div class="widget-body">
+    										<div class="filter-items">
+
+    											@foreach ($brands as $brand)
+
+
+    											<div class="filter-item">
+    												<div class="custom-control custom-radio">
+    													<input type="radio" class="custom-control-input" name="product_company" value="{{$brand->id}}" id="brand-{{$brand->id}}">
+    													<label class="custom-control-label" for="brand-{{$brand->id}}">{{$brand->company_name}}</label>
+    												</div><!-- End .custom-checkbox -->
+    											</div><!-- End .filter-item -->
+
+
+
+    											@endforeach
+
+
+
+
+
+
+
+    										</div><!-- End .filter-items -->
+    									</div><!-- End .widget-body -->
+    								</div><!-- End .collapse -->
+    							</div><!-- End .widget -->
+
+    							<div class="widget widget-collapsible">
+    								<h3 class="widget-title">
+    									<a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
+    										Giá cả
+    									</a>
+    								</h3><!-- End .widget-title -->
+
+    								<div class="collapse show" id="widget-5">
+    									<div class="widget-body">
+    										<div class="filter-price">
+    											<div class="filter-price-text">
+    												Khoảng giá:
+    												<span id="filter-price-range"></span>
+    											</div><!-- End .filter-price-text -->
+
+    											<!-- 
+    											<div class="slider">
+
+
+    												<div id="price-slider"></div>
+    											</div> -->
+
+    											<div class="slidecontainer mb-3">
+    												<input type="range" min="{{$minPrice}}" max="{{$maxPrice}}" value="{{$maxPrice}}" step="100" class="slider" name="slider_price" id="myRange">
+    											</div>
+    											<div class="row">
+													<div class="col-md-6">
+														Thấp nhất (đ)
+														<input type="number" min="{{$minPrice}}"  value="{{$minPrice}}" class="form-control" placeholder="min" name="min_price" id="min_price" >
+													</div>
+														
+    												<div class="col-md-6">
+														Cao nhất (đ)
+														<input type="number" min="{{$minPrice}}" value="{{$maxPrice}}" class="form-control" placeholder="max" name="max_price" id="max_price" >
+													</div>
+    											</div>
+
+
+
+
+
+    										</div><!-- End .widget-body -->
+    									</div><!-- End .collapse -->
+    								</div><!-- End .widget -->
+
+
+
+
+
+
+
+
+
+
+    								<button type="submit" class="btn btn-primary">Tiến hành lọc</button>
+
+
+    							</div><!-- End .sidebar sidebar-shop -->
+    					</aside><!-- End .col-lg-3 -->
+
+
+
+    				</div><!-- End .row -->
+
+    			</form>
     		</div><!-- End .container -->
     	</div><!-- End .page-content -->
     </main><!-- End .main -->
     @endsection
+
+

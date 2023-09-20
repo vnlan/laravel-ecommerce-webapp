@@ -210,11 +210,13 @@
 
                             <span class="cart-total-price">{{number_format(Cart::total())}} đ</span>
                         </div><!-- End .dropdown-cart-total -->
-
+                        @if (number_format(Cart::total())!=0)
+    
                         <div class="dropdown-cart-action">
-                            <a href="{{route('shop.cart.index')}}" class="btn btn-primary">Xem giỏ</a>
+                            <a href="{{route('shop.cart.index')}}" class="btn btn-outline-primary-2">Xem giỏ</a>
                             <a href="{{route('shop.checkout.index')}}" class="btn btn-outline-primary-2">Đặt hàng</a>
                         </div><!-- End .dropdown-cart-total -->
+                        @endif
                     </div><!-- End .dropdown-menu -->
                 </div><!-- End .cart-dropdown -->
             </div><!-- End .header-right -->

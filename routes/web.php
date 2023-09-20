@@ -44,7 +44,20 @@ Route::prefix('/')->group(function () {
         Route::get('/detail/{id}',[
             'as' => 'shop.products.detail',
             'uses' => 'App\Http\Controllers\v1\Shop\ShopProductController@detail']);
-    //search by name
+    //filter by category
+    Route::get('/filter-by-category/{id}',[
+        'as' => 'shop.products.filter-by-category',
+        'uses' => 'App\Http\Controllers\v1\Shop\ShopProductController@filterByCategory']);
+    //filter by category
+    Route::get('/filter-by-brand/{id}',[
+        'as' => 'shop.products.filter-by-brand',
+        'uses' => 'App\Http\Controllers\v1\Shop\ShopProductController@filterByBrand']);
+    //filter by multiple
+        Route::post('/filter-by-multiple',[
+            'as' => 'shop.products.filter-by-multiple',
+            'uses' => 'App\Http\Controllers\v1\Shop\ShopProductController@filterByMultiple']);
+    
+        //search by name
             Route::get('/search-name',[
                 'as' => 'shop.products.search-name',
                 'uses' => 'App\Http\Controllers\v1\Shop\ShopProductController@searchByName']);
@@ -56,6 +69,9 @@ Route::prefix('/')->group(function () {
         Route::get('/addOne/{id}',[
             'as' => 'shop.cart.addOne',
             'uses' => 'App\Http\Controllers\v1\Shop\CartController@addOne']);
+        Route::get('/buyNow/{id}',[
+            'as' => 'shop.cart.buyNow',
+            'uses' => 'App\Http\Controllers\v1\Shop\CartController@buyNow']);
         Route::get('/delete/{rowId}',[
             'as' => 'shop.cart.delete',
             'uses' => 'App\Http\Controllers\v1\Shop\CartController@delete']);
@@ -92,6 +108,8 @@ Route::prefix('/')->group(function () {
             'as' => 'shop.my-info.update-order',
             'uses' => 'App\Http\Controllers\v1\Shop\MyInfoController@updateOrder']);
     });
+
+    //Home page
     Route::get('/', [ 'as' => 'shop.index', 'uses' => 'App\Http\Controllers\v1\Shop\HomePageController@index']);
 
     //login

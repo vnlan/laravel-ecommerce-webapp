@@ -84,37 +84,40 @@
 
 
 
-                            <div class="details-filter-row details-row-size">
+                            <!-- <div class="details-filter-row details-row-size">
                                 <div class="mr-3">Số lượng: </div>
                                 <div class="product-details-quantity">
                                     <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                </div><!-- End .product-details-quantity -->
-                            </div><!-- End .details-filter-row -->
+                                </div>
+                            </div> -->
 
                             <div class="product-details-action">
                                 <a href="{{route('shop.cart.addOne',['id' => $product->id])}}" class="btn-product btn-cart"><span>Thêm vào giỏ</span></a>
-
-
+                            <div class="col-sm-1"></div>
+                                <a href="{{route('shop.cart.buyNow',['id' => $product->id])}}" class="btn-product btn-cart"><span>Mua ngay</span></a>
+                                
                             </div><!-- End .product-details-action -->
+
+                            
 
                             <div class="product-details-footer">
                                 <div class="product-cat">
                                     <span>Danh mục:</span>
                                     @foreach ($product->categories as $category)
-                                    <a href="#">{{$category->name}}</a>,
+                                    <a href="{{route('shop.products.filter-by-category',['id' => $category->id])}}">{{$category->name}}</a>,
                                     @endforeach
 
 
                                 </div><!-- End .product-cat -->
 
-
+                                
                             </div><!-- End .product-details-footer -->
 
                             <div class="product-details-footer">
                                 <div class="product-cat">
                                     <span>Hãng sản xuất:</span>
 
-                                    <a href="#">{{$product->companies->company_name}}</a>
+                                    <a href="{{route('shop.products.filter-by-brand',['id' => $product->companies->id])}}">{{$product->companies->company_name}}</a>
 
 
                                 </div><!-- End .product-cat -->

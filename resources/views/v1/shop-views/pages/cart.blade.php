@@ -75,7 +75,7 @@
                                     <td class="price-col">{{ number_format($cart->price)}} đ</td>
                                     <td class="quantity-col">
                                         <div class="cart-product-quantity">
-                                            <input type="number" id="inputCartQty{{$cart->rowId}}" class="form-control" value="{{$cart->qty}}" min="1" max="10" step="1" data-decimals="0" onchange="updateCart('{{$cart->rowId}}')"  required>
+                                            <input type="number" id="inputCartQty{{$cart->rowId}}" class="form-control" value="{{$cart->qty}}" min="1" max="{{$cart->options->stock}}" step="1" data-decimals="0" onchange="updateCart('{{$cart->rowId}}')"  required>
                                         </div><!-- End .cart-product-quantity -->
                                     
                                     

@@ -30,7 +30,7 @@
                 <div class="container intro-content">
                     <div class="row justify-content-end">
                         <div class="col-auto col-sm-7 col-md-6 col-lg-5">
-                           
+
                             <h2 class="fw-bold">{{$slider->title}}</h2>
                             <h5 class="intro-subtitle text-third">{{$slider->short_description}}</h5><!-- End .h3 intro-subtitle -->
 
@@ -45,7 +45,7 @@
                 </div><!-- End .intro-content -->
             </div><!-- End .intro-slide -->
             @endforeach
-  
+
 
 
         </div><!-- End .intro-slider owl-carousel owl-simple -->
@@ -60,7 +60,7 @@
             <div class="row">
                 @foreach ($newestCategories as $category)
                 <div class="col-6 col-sm-4 col-lg-2">
-                    <a href="#" class="cat-block">
+                    <a href="{{route('shop.products.filter-by-category',['id' => $category->id] )}}" class="cat-block">
                         <figure>
                             <span>
                                 <img src="{{$category->avatar_path}}" alt="Category image">
@@ -105,14 +105,14 @@
 
                         <div class="product-body ">
                             <div class="product-cat">
+                                <a href="{{route('shop.products.filter-by-brand',['id' => $product->companies->id])}}">{{$product->companies->company_name}} - </a>
                                 @foreach ($product->categories as $category)
-                                <a href="#">{{$category->name}}, </a>
+                                <a href="{{route('shop.products.filter-by-category',['id' => $category->id])}}">{{$category->name}}, </a>
                                 @endforeach
-
                             </div><!-- End .product-cat -->
                             <h3 class="product-title"><a href="{{route('shop.products.detail',['id' =>$product->id])}}">{{$product->name}}</a></h3><!-- End .product-title -->
                             <div class="product-price d-flex justify-content-center">
-                               
+
                                 {{number_format($product->price)}} đ
                             </div><!-- End .product-price -->
 
@@ -202,10 +202,10 @@
 
                         <div class="product-body">
                             <div class="product-cat">
+                                <a href="{{route('shop.products.filter-by-brand',['id' => $product->companies->id])}}">{{$product->companies->company_name}} - </a>
                                 @foreach ($product->categories as $category)
-                                <a href="#">{{$category->name}}, </a>
+                                <a href="{{route('shop.products.filter-by-category',['id' => $category->id])}}">{{$category->name}}, </a>
                                 @endforeach
-
                             </div><!-- End .product-cat -->
                             <h3 class="product-title"><a href="{{route('shop.products.detail',['id' =>$product->id])}}">{{$product->name}}</a></h3><!-- End .product-title -->
                             <div class="product-price d-flex justify-content-center">
@@ -249,10 +249,10 @@
 
                         <div class="product-body">
                             <div class="product-cat">
+                                <a href="{{route('shop.products.filter-by-brand',['id' => $product->companies->id])}}">{{$product->companies->company_name}} - </a>
                                 @foreach ($product->categories as $category)
-                                <a href="#">{{$category->name}}, </a>
+                                <a href="{{route('shop.products.filter-by-category',['id' => $category->id])}}">{{$category->name}}, </a>
                                 @endforeach
-
                             </div><!-- End .product-cat -->
                             <h3 class="product-title"><a href="{{route('shop.products.detail',['id' =>$product->id])}}">{{$product->name}}</a></h3><!-- End .product-title -->
                             <div class="product-price d-flex justify-content-center">

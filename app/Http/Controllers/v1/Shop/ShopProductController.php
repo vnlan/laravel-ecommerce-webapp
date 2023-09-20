@@ -31,8 +31,9 @@ class ShopProductController extends Controller
         $brands = $this->productCompany->all();
         $products = $this->product->paginate(9);
         $categories = $this->category->all();
-  
-        return view('v1.shop-views.pages.products', compact('products', 'brands', 'categories'));
+        $minPrice = $this->product->whereNotNull('price')->min("price");
+        $maxPrice = $this->product->whereNotNull('price')->max("price");
+        return view('v1.shop-views.pages.products', compact('products', 'brands', 'categories','minPrice','maxPrice'));
     }
 
     public function detail($id)
@@ -44,7 +45,81 @@ class ShopProductController extends Controller
         return view('v1.shop-views.pages.product-detail', compact('product','randomProducts'));
     }
 
+    public function filterByCategory($id)
+    {
+        try {
+            $categoryRequested = $this->category->find($id);
+            $products = $categoryRequested->products()->paginate(9);
+            $brands = $this->productCompany->all();
+            $categories = $this->category->all();
+            $minPrice = $this->product->whereNotNull('price')->min("price");
+            $maxPrice = $this->product->whereNotNull('price')->max("price");
+            return view('v1.shop-views.pages.products', compact('products', 'brands', 'categories','minPrice','maxPrice'));
+        } catch (\Throwable $th) {
+            return redirect()->route('shop.index')->with('error','Không tồn tại danh mục! Mời quý khách chọn danh mục khác');
+        }
+      
+        // dd($products);
+    }
+    public function filterByBrand($id)
+    {
+        try {
+            $productCompanyRequested = $this->productCompany->find($id);
+            $products = $productCompanyRequested->products()->paginate(9);
 
+            $brands = $this->productCompany->all();
+            $categories = $this->category->all();
+            $minPrice = $this->product->whereNotNull('price')->min("price");
+            $maxPrice = $this->product->whereNotNull('price')->max("price");
+            return view('v1.shop-views.pages.products', compact('products', 'brands', 'categories','minPrice','maxPrice'));
+        } catch (\Throwable $th) {
+            return redirect()->route('shop.index')->with('error','Không tồn tại hãng! Mời quý khách chọn hãng khác');
+        }
+      
+        // dd($products);
+    }
+    public function filterByMultiple(Request $request)
+    {
+        try {
+        $query = Product::query();
+
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            // list($min, $max) = explode(",", $request->price);
+
+            $query->where('price', '>=', $request->min_price)
+                  ->where('price', '<=', $request->max_price);
+        }
+
+        if ($request->filled('product_company')) {
+            $product_company_id = $request->product_company;
+
+            $query->whereHas('companies', function ($query) use ($product_company_id) {
+                $query->where('product_company_id', $product_company_id);
+            });
+           
+        }
+
+    
+        if ($request->filled('category')) {
+            $category_id = $request->category;
+
+            $query->whereHas('categories', function ($query) use ($category_id) {
+                $query->where('category_id', $category_id);
+            });
+           
+        }
+
+            $products =  $query->paginate(9);
+            $brands = $this->productCompany->all();
+            $categories = $this->category->all();
+            $minPrice = $this->product->whereNotNull('price')->min("price");
+            $maxPrice = $this->product->whereNotNull('price')->max("price");
+            return view('v1.shop-views.pages.products', compact('products', 'brands', 'categories','minPrice','maxPrice'));
+        // dd($products);
+        } catch (\Throwable $th) {
+            return redirect()->route('shop.products.all')->with('error','Không tồn tại sản phẩm khớp!');
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

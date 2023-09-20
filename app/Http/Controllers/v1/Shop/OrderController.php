@@ -91,7 +91,7 @@ class OrderController extends Controller
           
           } catch (\Exception $e) {
           
-              return redirect()->route('shop.products.index')->with('error','Đặt hàng thất bại đã xảy ra lỗi!');
+              return redirect()->route('shop.products.all')->with('error','Đặt hàng thất bại đã xảy ra lỗi!');
      
         }
         

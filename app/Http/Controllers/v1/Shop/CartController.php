@@ -54,6 +54,7 @@ class CartController extends Controller
                 'weight' => 0,
                 'options' => [
                     'feature_image' => $product->feature_image_path,
+                    'stock' =>  $product->stock,
                 ]
             ]);
             return back()->with('success','Thêm vào giỏ hàng thành công!');
@@ -63,7 +64,29 @@ class CartController extends Controller
         }
         
     }
+    public function buyNow($id)
+    {
+        try{
+            $product = $this->product->findOrFail($id);
 
+            Cart::add([
+                'id' => $id,
+                'name' => $product->name,
+                'qty' => 1,
+                'price' => $product->price,
+                'weight' => 0,
+                'options' => [
+                    'feature_image' => $product->feature_image_path,
+                    'stock' =>  $product->stock,
+                ]
+            ]);
+            return redirect()->route('shop.cart.index')->with('success','Thêm thành công bạn có thể kiểm tra lại trước khi đặt hàng!');
+          
+        }catch(\Exception $e){
+            return back()->with('error','Thêm vào giỏ hàng thất bại! Đã xảy ra lỗi');
+        }
+        
+    }
     /**
      * Store a newly created resource in storage.
      *
