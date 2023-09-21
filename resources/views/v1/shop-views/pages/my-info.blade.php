@@ -8,6 +8,7 @@
 @section('v1-shop-js')
 
 <script type="text/javascript" src="{{ asset('v1/resources/js/admin-page/reuseable/deny-order.js') }}"></script>
+<script type="text/javascript" src="{{ asset('v1/resources/js/admin-page/reuseable/preview-image.js') }}"></script>
 @endsection
 
 
