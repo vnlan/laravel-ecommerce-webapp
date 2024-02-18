@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#searchkey').on('change', function() {
+    $('#searchkey').on('keyup', function() {
         $value = $(this).val();
         if($value != '')  
         {  

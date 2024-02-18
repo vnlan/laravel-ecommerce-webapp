@@ -58,7 +58,7 @@ Route::prefix('/')->group(function () {
             'uses' => 'App\Http\Controllers\v1\Shop\ShopProductController@filterByMultiple']);
     
         //search by name
-            Route::get('/search-name',[
+            Route::post('/search-name',[
                 'as' => 'shop.products.search-name',
                 'uses' => 'App\Http\Controllers\v1\Shop\ShopProductController@searchByName']);
         });

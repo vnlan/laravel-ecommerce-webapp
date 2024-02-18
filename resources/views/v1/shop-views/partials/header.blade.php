@@ -56,37 +56,29 @@
             <div class="header-center">
                 <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
                     <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                    <form action="#" method="get">
+                    <!-- <form action="#" method="get">
                         <div class="header-search-wrapper search-wrapper-wide">
+                            <label for="q" class="sr-only">Tìm kiếm</label>
+                            <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                            <input type="search" class="form-control" name="searchkey" id="searchkey" placeholder="Nhập tên sản phẩm ..." required>
+                        </div>
+                        <div id="searchResult">
+
+                        </div>
+
+                    </form> -->
+
+
+
+                    <form action="{{route('shop.products.search-name')}}" method="post">
+                    @csrf
+                    <div class="header-search-wrapper search-wrapper-wide">
                             <label for="q" class="sr-only">Tìm kiếm</label>
                             <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
                             <input type="search" class="form-control" name="searchkey" id="searchkey" placeholder="Nhập tên sản phẩm ..." required>
                         </div><!-- End .header-search-wrapper -->
                         <div id="searchResult">
-                            <!-- <div class="header-search-wrapper search-wrapper-wide">
-                                <div class="row my-2">
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-8">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <a href="#">
-                                                    <h6>Sản phẩm</h6>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p>10000đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 my-1">
-                                        <a href="#"><img width="auto" height="200" src="https://cdn.sforum.vn/sforum/wp-content/uploads/2018/11/3-8.png"></a>
-                                    </div>
-                                    <div class="col-md-1"></div>
-                                </div>
-                            </div> -->
-                            <!-- End .header-search-wrapper -->
+                           
                         </div>
 
                     </form>

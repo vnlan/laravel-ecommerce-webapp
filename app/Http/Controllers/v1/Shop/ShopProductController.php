@@ -186,43 +186,73 @@ class ShopProductController extends Controller
         //
     }
 
-    public function searchByName(Request $request)
-    {
-        //
-        // $productsMatch = $this->product->where('name', 'LIKE', '%'.$request->keyword.'%')->take(5)->get();
-        //    return view('v1.shop-views.partials.header',compact('productsMatch'));
+    // public function searchByName(Request $request)
+    // {
+    //     //
+    //     // $productsMatch = $this->product->where('name', 'LIKE', '%'.$request->keyword.'%')->take(5)->get();
+    //     //    return view('v1.shop-views.partials.header',compact('productsMatch'));
 
-        if ($request->ajax()) {
-            $output = '';
-            $products = $this->product->where('name', 'LIKE', '%' . $request->keyword . '%')->take(3)->get();
-            if ($products) {
-                foreach ($products as $key => $product) {
-                    $output .= '<div class="header-search-wrapper search-wrapper-wide">
-                    <div class="row my-2">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a href="/products/detail/'. $product->id.'"><h6>'.$product->name.'</h6></a>'
-                        .'</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p>'. $product->price .' đ</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 my-1" 
-                            <a href="/products/detail/'. $product->id . '">
-                                <img width="auto" height="200" src="'. $product->feature_image_path 
-                            .'"></a>
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div>
-                </div>';
-                }
-            }
-            return Response($output);
-        }
+    //     if ($request->ajax()) {
+    //         $output = '';
+    //         $products = $this->product->where('name', 'LIKE', '%' . $request->keyword . '%')->take(3)->get();
+    //         if ($products) {
+    //             foreach ($products as $key => $product) {
+    //                 $output .= '<div class="header-search-wrapper search-wrapper-wide">
+    //                 <div class="row my-2">
+    //                     <div class="col-md-1"></div>
+    //                     <div class="col-md-8">
+    //                         <div class="row">
+    //                             <div class="col-md-12">
+    //                                 <a href="/products/detail/'. $product->id.'"><h6>'.$product->name.'</h6></a>'
+    //                     .'</div>
+    //                     </div>
+    //                     <div class="row">
+    //                         <div class="col-md-12">
+    //                             <p>'. $product->price .' đ</p>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                     <div class="col-md-2 my-1" 
+    //                         <a href="/products/detail/'. $product->id . '">
+    //                             <img width="auto" height="200" src="'. $product->feature_image_path 
+    //                         .'"></a>
+    //                     </div>
+    //                     <div class="col-md-1"></div>
+    //                 </div>
+    //             </div>';
+    //             }
+    //         }
+    //         return Response($output);
+    //     }
+    // }
+    public function searchByName(Request $request){
+
+        $query = Product::query();
+
+        
+        $searchkey = $request->searchkey;
+
+        // $products = $this->product->where('name', 'like', "%$searchkey%")->paginate(9);
+      
+        $query->whereHas('companies',function ($query) use ($searchkey) {
+            $query->where('company_name', 'like', "%{$searchkey}%")
+                  ->orWhere('name','like',"%{$searchkey}%");
+                  
+                })
+                ->orWhereHas('categories', function ($query) use ($searchkey)  {
+                    $query->where('name','like',"%{$searchkey}%");
+                })
+        ;
+
+        $products = $query->paginate(9);
+
+
+        $categories = $this->category->all();
+        $brands = $this->productCompany->all();
+        $minPrice = $this->product->whereNotNull('price')->min("price");
+        $maxPrice = $this->product->whereNotNull('price')->max("price");
+       
+        // dd($products);
+        return view('v1.shop-views.pages.products', compact('products', 'brands', 'categories','minPrice','maxPrice'));
     }
 }
